@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Download A Large</string>
+    <string name="download">Download</string>
+    <string name="download_progress">Download Progress</string>
+</resources>
