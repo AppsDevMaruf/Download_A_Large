@@ -1,3 +1,5 @@
+package com.maruf.downloadalarge
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -8,7 +10,6 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
-import com.maruf.downloadalarge.R
 
 class MainActivity : AppCompatActivity() {
 

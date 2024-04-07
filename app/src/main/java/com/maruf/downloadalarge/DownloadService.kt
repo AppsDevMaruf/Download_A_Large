@@ -1,3 +1,5 @@
+package com.maruf.downloadalarge
+
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -7,32 +9,37 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.maruf.downloadalarge.R
 
-abstract class DownloadService : Service() {
+ class DownloadService : Service() {
 
-    private lateinit var notificationManager: NotificationManager
+     private val notificationManager: NotificationManager by lazy {
+         getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+     }
     private lateinit var notificationChannel: NotificationChannel
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     @SuppressLint("ForegroundServiceType")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val url = "http://dropbox.sandbox2000.com/intrvw/SampleVideo_1280x720_30mb.mp4"
+        val url = "https://drive.google.com/file/d/0B8vtjkRL-9A_aldKWUhOOWNua0k/view?usp=sharing&resourcekey=0-JpmBH9xhtB5VEFmHPv-Rkw"
         startForeground(NOTIFICATION_ID, createNotification(0))
         downloadFile(url)
         return START_STICKY
     }
 
-    private fun downloadFile(url: String) {
+     override fun onBind(p0: Intent?): IBinder? {
+         TODO("Not yet implemented")
+     }
+
+     private fun downloadFile(url: String) {
         val workManager = WorkManager.getInstance(applicationContext)
         val downloadRequest = OneTimeWorkRequest.Builder(DownloadWorker::class.java)
             .setInputData(workDataOf("url" to url))
